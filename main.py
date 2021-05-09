@@ -3,11 +3,13 @@ import os
 
 os.system('cls')
 
+#Funcion que toma una cadena y devuelve una lista de enteros
 def convertir(string):
     lista = list(string.split(", "))
     listaInt = [int(i) for i in lista]
     return listaInt
 
+#Funcion que ejecuta el cifrado de un mensaje ingresado por teclado
 def opcion1():
     os.system('cls')
     msje = input("Ingrese el mensaje a cifrar: ")
@@ -17,6 +19,7 @@ def opcion1():
     print(f"Mensaje cifrado: {msjeCifrado}")
     print("\n!!!Copiar mensaje SIN corchetes!!!")
 
+#Funcion que ejecuta el descifrado de un mensaje por teclado
 def opcion2():
     os.system('cls')
     msjeCifrado = input("Ingrese el mensaje cifrado: ")
@@ -28,18 +31,19 @@ def opcion2():
     os.system('cls')
     print(f"Mensaje original: {msje}")
 
+#Funcion generadora de par de claves publica y privada
 def opcion3():
     os.system('cls')
     num = 10
     print("Par de claves generados:")
 
+    #Algoritmo RSA para generar el par de claves
     prime1 = randomPrime(num)
     prime2 = randomPrime(num)
     modulo = prime1 * prime2
     fiModulo = (prime1 - 1) * (prime2 - 1)
     publicKeyExp = randomCoprime(fiModulo)
     privateKeyExp = randomD(publicKeyExp, fiModulo)
-
     publicKey  = (modulo, publicKeyExp)
     privateKey = (modulo, privateKeyExp)
 
@@ -51,6 +55,7 @@ print("Hola!")
 
 teclaIncorrecta = True
 
+#Bucle que corre el menu principal, donde se ingresan las instrucciones
 while teclaIncorrecta:
     print("Pulse [1] si quiere cifrar un mensaje\nPulse [2] si quiere descifrar un mensaje\nPulse [3] si quiere generar un par de claves")
     tecla = input("Ingrese instruccion: ")
@@ -66,33 +71,3 @@ while teclaIncorrecta:
     else:
         os.system('cls')
         print("Intente nuevamente")
-
-
-msje = 'bolas'
-
-#100000
-num = 10
-
-prime1 = randomPrime(num)
-prime2 = randomPrime(num)
-modulo = prime1 * prime2
-fiModulo = (prime1 - 1) * (prime2 - 1)
-publicKeyExp = randomCoprime(fiModulo)
-privateKeyExp = randomD(publicKeyExp, fiModulo)
-
-publicKey  = (modulo, publicKeyExp)
-privateKey = (modulo, privateKeyExp)
-
-'''print(f"Primo 1: {prime1}")
-print(f"Primo 2: {prime2}")
-print(f"Modulo: {modulo}")
-print(f"φ(modulo): {fiModulo}")
-print(f"exponente de clave publica: {publicKeyExp}")
-print(f"exponente de clave privada: {privateKeyExp}")
-print(f"Clave publica: {publicKey}")
-print(f"Clave privada: {privateKey}")'''
-
-'''msjeCifrado = cifrar(msje, publicKey)
-msjeDescifrado = descifrar(msjeCifrado, privateKey)
-#print(msjeCifrado)
-print(msjeDescifrado)'''
