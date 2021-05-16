@@ -3,6 +3,19 @@ import os
 
 os.system('cls')
 
+#Funcion para guardar el par de claves en un archivo .txt
+def opcionGuardarClaves(publicKey, privateKey):
+    os.system('cls')
+    print("Ingrese ruta (absoluta) del archivo. Ejemplo: C:/users/juan/desktop/archivo.txt")
+    ruta = input("Ruta: ")
+    f = open(ruta, "w+")
+    for i in range(3):
+        if i == 0: f.write("Par de claves generadas:")
+        elif i == 1: f.write(f"\nClave publica: {publicKey}")
+        else: f.write(f"\nClave privada: {privateKey}")
+    print("\nClaves guardadas con exito")
+    f.close()
+
 #Funcion que toma una cadena y devuelve una lista de enteros
 def convertir(string):
     lista = list(string.split(", "))
@@ -10,7 +23,7 @@ def convertir(string):
     return listaInt
 
 #Funcion que ejecuta el cifrado de un mensaje ingresado por teclado
-def opcion1():
+def opcionCifrar():
     os.system('cls')
     msje = input("Ingrese el mensaje a cifrar: ")
     clavePublicaStr = input("Ingrese clave publica del destinatario (ejemplo: 221, 137): ")
@@ -20,7 +33,7 @@ def opcion1():
     print("\n!!!Copiar mensaje SIN corchetes!!!")
 
 #Funcion que ejecuta el descifrado de un mensaje por teclado
-def opcion2():
+def opcionDescifrar():
     os.system('cls')
     msjeCifrado = input("Ingrese el mensaje cifrado: ")
     msjeCifradoInt = convertir(msjeCifrado)
@@ -32,10 +45,10 @@ def opcion2():
     print(f"Mensaje original: {msje}")
 
 #Funcion generadora de par de claves publica y privada
-def opcion3():
+def opcionClaves():
     os.system('cls')
     num = 10
-    print("Par de claves generados:")
+    print("Par de claves generadas:")
 
     #Algoritmo RSA para generar el par de claves
     prime1 = randomPrime(num)
@@ -49,25 +62,43 @@ def opcion3():
 
     print(f"Clave publica: {publicKey}")
     print(f"Clave privada: {privateKey}")
+
+    teclaIncorrecta2 = True
+    while teclaIncorrecta2:
+        print("Desea guardar las claves en un archivo .txt?\n[1] SI\n[2] NO")
+        tecla = input("Ingrese instruccion: ")
+        if tecla == '1':
+            opcionGuardarClaves(publicKey, privateKey)
+            teclaIncorrecta2 = False
+        elif tecla == '2':
+            teclaIncorrecta2 = False
+        else:
+            os.system('cls')
+            print("Intente nuevamente\n")
+
     print("\n!!!Para ingresar las claves, ignorar los parentesis!!!")
 
-print("Hola!")
+def main():
+    print("Hola!")
 
-teclaIncorrecta = True
+    teclaIncorrecta = True
 
-#Bucle que corre el menu principal, donde se ingresan las instrucciones
-while teclaIncorrecta:
-    print("Pulse [1] si quiere cifrar un mensaje\nPulse [2] si quiere descifrar un mensaje\nPulse [3] si quiere generar un par de claves")
-    tecla = input("Ingrese instruccion: ")
-    if tecla == '1':
-        opcion1()
-        teclaIncorrecta = False
-    elif tecla == '2':
-        opcion2()
-        teclaIncorrecta = False
-    elif tecla == '3':
-        opcion3()
-        teclaIncorrecta = False
-    else:
-        os.system('cls')
-        print("Intente nuevamente")
+    #Bucle que corre el menu principal, donde se ingresan las instrucciones
+    while teclaIncorrecta:
+        print("Pulse [1] si quiere cifrar un mensaje\nPulse [2] si quiere descifrar un mensaje\nPulse [3] si quiere generar un par de claves")
+        tecla = input("Ingrese instruccion: ")
+        if tecla == '1':
+            opcionCifrar()
+            teclaIncorrecta = False
+        elif tecla == '2':
+            opcionDescifrar()
+            teclaIncorrecta = False
+        elif tecla == '3':
+            opcionClaves()
+            teclaIncorrecta = False
+        else:
+            os.system('cls')
+            print("Intente nuevamente\n")
+
+if __name__ == '__main__':
+    main()
